@@ -8,9 +8,33 @@
     <link rel="stylesheet" href="./output.css">
     <title>Document</title>
 </head>
-<body class="bg-quizBGIMG bg-cover  bg-no-repeat">
-    <div class="p-2 flex flex-col justify-center items-center" id="container">
-        
+
+<body class="bg-quizBGIMG bg-cover h-screen bg-no-repeat">
+    <div class="p-2 flex flex-col justify-center h-full space-y-24 ">
+        <div class="flex flex-col container mx-auto items-center ">
+            <hr class=" border-2 border-cyan-950/90 rounded-full  w-full  ">
+        </div>
+        <div class=" flex flex-col container mx-auto items-center   space-y-8">
+            <div class="border-blue-950 w-2/3 border-2 p-2 rounded-full text-center bg-cyan-950/90 text-white text-3xl" id="QuesCon">
+
+            </div>
+            <div class="bg-cyan-950/90 rounded-2xl w-2/3">
+                <div class=" p-4  w-full  space-y-4 " id="container">
+                    
+                </div>
+                <div class="w-full flex">
+                    <button class="w-1/2 p-2 bg-[#00586c]" id="Prev">Previous</button>
+                    <button class="w-1/2 p-2 bg-[#00586c]" id="Next" onclick="LoadingArrItemsNex()">Next</button>
+                </div>
+                <div class="w-full ">
+                    <button class="w-full p-2 bg-[#00586c]" id="Submit">Submit</button>
+                </div>
+            </div>
+            
+        </div>
+        <div class="flex flex-col container mx-auto items-center ">
+            <hr class=" border-2 border-cyan-950/90 rounded-full  w-full  ">
+        </div>
     </div>
     <script src="./AppFiles/quiz.js"></script>
 </body>
