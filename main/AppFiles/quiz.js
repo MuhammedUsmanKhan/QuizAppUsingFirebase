@@ -80,7 +80,6 @@ const LoadingArrItems = () => {
             break;
         }
     }
-    x = x + 1;
     //  console.log(x)
 }
 LoadingArrItems()
@@ -100,66 +99,67 @@ LabList.forEach(singlelist => {
         singlelist.classList.add(`SingleList`, `text-white`)
     })
 })
+let PrevItem = () => {
+  
+   
+    if(x != 0){
+        x--
+    }
+    
+    let lengthObj = Object.keys(MCQ[x]).length
+    let keys = Object.keys(MCQ[x])
 
-// Prev.addEventListener(`click`, () => {
-//     console.log("Prev value of x : " + x)
-//     if (x == MCQ.length) {
-//         x = x - 2
-//     } else {
-//         x--
-//     }
+    container.innerHTML = ''
+    QuestionCont.innerHTML = ``
 
-//     let lengthObj = Object.keys(MCQ[x]).length
-//     let keys = Object.keys(MCQ[x])
+    for (let i = 0; i < lengthObj - 1; i++) {
 
-//     container.innerHTML = ''
-//     QuestionCont.innerHTML = ``
+        if (lengthObj != 0) {
+            let newELEMENT = document.createElement(`div`)
+            if (i == 0) {
+                let QuesSpan = document.createElement(`span`)
+                let txt = document.createTextNode(`${MCQ[x].Question}`)
+                QuesSpan.appendChild(txt)
+                QuesSpan.setAttribute(`id`, `ques`)
+                QuesSpan.setAttribute(`class`, `font-semibold`)
+                QuestionCont.appendChild(QuesSpan)
+            }
+            else {
+                newELEMENT.setAttribute(`class`, ` flex items-center pl-3 bg-white text-black focuscolor rounded-2xl space-x-2`)
+                container.append(newELEMENT)
+                let Label = document.createElement(`label`)
+                let txt = document.createTextNode(`${MCQ[x][`${keys[i]}`]}`)
+                Label.appendChild(txt)
+                Label.setAttribute(`id`, `Ans`)
+                Label.setAttribute(`for`, `inp${i}`)
+                let inp = document.createElement(`input`)
+                Label.setAttribute(`class`, `flex labelcolor w-11/12 font-semibold h-12 items-center `)
+                inp.setAttribute(`class`, `accent-[#00586c] option`)
+                inp.setAttribute(`type`, `radio`)
+                inp.setAttribute(`id`, `inp${i}`)
+                inp.setAttribute(`name`, `options`)
+                inp.setAttribute(`value`, `${keys[i]}`)
 
-//     for (let i = 0; i < lengthObj - 1; i++) {
+                newELEMENT.appendChild(inp)
+                newELEMENT.appendChild(Label)
 
-//         if (lengthObj != 0) {
-//             let newELEMENT = document.createElement(`div`)
-//             if (i == 0) {
-//                 let QuesSpan = document.createElement(`span`)
-//                 let txt = document.createTextNode(`${MCQ[x].Question}`)
-//                 QuesSpan.appendChild(txt)
-//                 QuesSpan.setAttribute(`id`, `ques`)
-//                 QuesSpan.setAttribute(`class`, `font-semibold`)
-//                 QuestionCont.appendChild(QuesSpan)
-//             }
-//             else {
-//                 newELEMENT.setAttribute(`class`, ` flex items-center pl-3 bg-white text-black focuscolor rounded-2xl space-x-2`)
-//                 container.append(newELEMENT)
-//                 let Label = document.createElement(`label`)
-//                 let txt = document.createTextNode(`${MCQ[x][`${keys[i]}`]}`)
-//                 Label.appendChild(txt)
-//                 Label.setAttribute(`id`, `Ans`)
-//                 Label.setAttribute(`for`, `inp${i}`)
-//                 let inp = document.createElement(`input`)
-//                 Label.setAttribute(`class`, `flex labelcolor w-11/12 font-semibold h-12 items-center `)
-//                 inp.setAttribute(`class`, `accent-[#00586c]`)
-//                 inp.setAttribute(`type`, `radio`)
-//                 inp.setAttribute(`id`, `inp${i}`)
-//                 inp.setAttribute(`name`, `options`)
-//                 inp.setAttribute(`value`, `${keys[i]}`)
-
-//                 newELEMENT.appendChild(inp)
-//                 newELEMENT.appendChild(Label)
-
-//             }
-//         }
-//         else {
-//             break;
-//         }
-//     }
-
-// })
+            }
+        }
+        else {
+            break;
+        }
+    }
+    console.log("Prev value of x : " + x)
+}
+//Prev.addEventListener(`click`, PrevItem() )
 
 const LoadingArrItemsNex = () => {
-    console.log("Nex value of x : " + x)
-    if (x <= 0) {
-        x = 1
+    
+    if(x < MCQ.length -1)
+    {
+        x = x + 1;
     }
+ 
     let lengthObj = Object.keys(MCQ[x]).length
     let keys = Object.keys(MCQ[x])
 
@@ -203,15 +203,14 @@ const LoadingArrItemsNex = () => {
             break;
         }
     }
-    
-    x = x + 1;
+    console.log("Nex value of x : " + x)
     //console.log(x)
 }
 let count = 0;
 submit.addEventListener(`click`, () => {
     console.log("Submit value of x : " + x)
 
-    //    let keys = Object.keys(MCQ[x])
+     //let keys = Object.keys(MCQ[x])
     let Options = document.querySelectorAll(`.option`)
     let CorrectAns = () => {
         let Answer
@@ -221,22 +220,52 @@ submit.addEventListener(`click`, () => {
                 Answer = input.value
             }
         })
-        let ansArr = []
-        ansArr.splice(0,0,Answer)
-        console.log(ansArr)
-        // console.log(Answer)
+       // console.log(MCQ[x])
+        if (MCQ[x][Answer] == MCQ[x].Answer) {
+            count++
+            console.log("count : " + count)
+        }
+        //let ansArr = []
+        MCQ.splice(MCQ[x],1)
+        let MCQLeft = MCQ.length
+        if(x != 0){
+            LoadingArrItemsNex()
+        }
+        else if( x < MCQ.length){
+          PrevItem()  
+        }
+        
+        
+        console.log(MCQ)
+       
+    }
+    CorrectAns()
+
+    
+})
+ // console.log(Answer)
         // console.log(MCQ[McqNum][Answer])
         // console.log(MCQ[McqNum].Answer)
         // if (MCQ[x][Answer] == MCQ[x].Answer) {
         //     count++
         //     console.log("count : " + count)
         // }
-    }
-    CorrectAns()
-
-    // console.log(MCQ[x-1].Answer)
+        // console.log(MCQ[x-1].Answer)
     // if(Answer == MCQ[x-1].Answer){
     //   console.log("lesgo")
     // }
 
-})
+
+    
+
+ // console.log(Answer)
+        // console.log(MCQ[McqNum][Answer])
+        // console.log(MCQ[McqNum].Answer)
+        // if (MCQ[x][Answer] == MCQ[x].Answer) {
+        //     count++
+        //     console.log("count : " + count)
+        // }
+        // console.log(MCQ[x-1].Answer)
+    // if(Answer == MCQ[x-1].Answer){
+    //   console.log("lesgo")
+    // }
